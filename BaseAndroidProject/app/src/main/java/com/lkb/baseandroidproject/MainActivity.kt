@@ -1,9 +1,12 @@
 package com.lkb.baseandroidproject
 
-import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 
+const val YOUR_FRAGMENT_STRING_TAG = "UserForm"
 
 class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
     var dialogFragment: MyDialogFragment? = null
@@ -11,24 +14,13 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar.setTitle(R.string.app_name)
-//        val db = Firebase.firestore
-//        val city = hashMapOf(
-//            "name" to "Baripada",
-//            "state" to "Odisha",
-//            "country" to "India",
-//        )
-//        val address = hashMapOf(
-//            "data" to listOf(city, city)
-//        )
-//        db.collection("address").document("LA")
-//            .set(address)
-//            .addOnSuccessListener {
-//                Log.d(
-//                    "MainActivity",
-//                    "DocumentSnapshot successfully written!"
-//                )
-//            }
-//            .addOnFailureListener { e -> Log.w("MainActivity", "Error writing document", e) }
+
+        user_registration.setOnClickListener {
+            startFragment(CreateUserFragment.getInstance())
+        }
+        view_user.setOnClickListener {
+            startFragment(UserDetailsFragment.getInstance())
+        }
         logout.setOnClickListener {
 
             dialogFragment = MyDialogFragment()
@@ -49,5 +41,11 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
     override fun onStop() {
         super.onStop()
         dialogFragment?.removeListener()
+    }
+    private fun startFragment(fragment:Fragment){
+        val manager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment, YOUR_FRAGMENT_STRING_TAG)
+        transaction.commit()
     }
 }
