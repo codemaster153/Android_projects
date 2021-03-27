@@ -23,17 +23,20 @@ class UserDetailsFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         with(recyclerView) {
-            this.adapter = UserDataAdapter(TestData.getUserData())
+            this.adapter = UserDataAdapter(listOf())
             this.layoutManager = layoutManager
         }
         val list = mutableListOf<User>()
         val database = Firebase.database.reference
-        database.child("collab").get().addOnSuccessListener {
+        database.child(Constants.DB_NAME).get().addOnSuccessListener { it ->
             //it.children.forEach { e->e.getValue(User::class.java) }
-            val iterator = it.children.iterator()
-            while (iterator.hasNext()) {
-                iterator.next().getValue(User::class.java)?.let { it1 -> list.add(it1) }
+            val iterator = it.children
+            iterator.forEach {
+                it.getValue(User::class.java)?.let { it1 -> list.add(it1) }
             }
+//            while (iterator.hasNext()) {
+//                iterator.next().getValue(User::class.java)?.let { it1 -> list.add(it1) }
+//            }
             recyclerView.adapter = UserDataAdapter(list)
             (recyclerView.adapter as UserDataAdapter).notifyDataSetChanged()
             Log.i("firebase", "Got value ${it.value}")

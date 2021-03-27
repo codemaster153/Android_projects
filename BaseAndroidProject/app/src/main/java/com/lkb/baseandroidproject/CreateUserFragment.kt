@@ -23,26 +23,44 @@ class CreateUserFragment : Fragment() {
         var rootView = inflater.inflate(R.layout.create_user_layout, null)
         val createUser = rootView.btnCreateUser
         createUser.setOnClickListener {
-            if(rootView.editTextTextPersonName.text.toString().isEmpty()){
-                Toast.makeText(context,"Name is Mandatory",Toast.LENGTH_SHORT).show()
+            if (rootView.editTextTextPersonName.text.toString().isEmpty()) {
+                Toast.makeText(context, "Name is Mandatory", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if(rootView.etPhoneNumber.text.toString().isEmpty()){
-                Toast.makeText(context,"Phone Number is Mandatory",Toast.LENGTH_SHORT).show()
+            if (rootView.etPhoneNumber.text.toString().isEmpty()) {
+                Toast.makeText(context, "Phone Number is Mandatory", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val user = User(rootView.editTextTextPersonName.text.toString(), rootView.etAddress.text.toString(), rootView.etCreditLimit.text.toString().toDouble(), null)
-            database.child("collab").child(Util.generateUserId(rootView.etPhoneNumber.text.toString().toLong(),user.name!!))
+            val user = User(
+                rootView.editTextTextPersonName.text.toString(),
+                rootView.etAddress.text.toString(),
+                rootView.etPhoneNumber.text.toString(),
+                rootView.etCreditLimit.text.toString().toDouble(),
+                null
+            )
+            val uuid = Util.generateUserId(
+                rootView.etPhoneNumber.text.toString().toLong(),
+                user.name!!
+            )
+            user.uuid = uuid
+            database.child(Constants.DB_NAME).child(uuid)
                 .setValue(user)
-                .addOnSuccessListener { Toast.makeText(context,"User Created ", Toast.LENGTH_SHORT).show()
-                //refresh the fragment ui
+                .addOnSuccessListener {
+                    Toast.makeText(context, "User Created ", Toast.LENGTH_SHORT).show()
+                    //refresh the fragment ui
                     rootView.editTextTextPersonName.setText("")
                     rootView.etAddress.setText("")
                     rootView.etPhoneNumber.setText("")
                     rootView.etCreditLimit.setText("")
 
                 }
-                .addOnFailureListener { Toast.makeText(context,"User Not created ", Toast.LENGTH_SHORT).show() }
+                .addOnFailureListener {
+                    Toast.makeText(
+                        context,
+                        "User Not created ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
         }
         return rootView
     }

@@ -18,10 +18,10 @@ class TestData {
             tl.add(t1)
             tl.add(t2)
 
-            val user = User("Jhon Doe","Bangalore",1000.00,transctionList)
-            val user2 = User("Jane Doe","Baripada",10000.00,tl)
-            userList.add(user)
-            userList.add(user2)
+//            val user = User("Jhon Doe","Bangalore",1000.00,transctionList)
+//            val user2 = User("Jane Doe","Baripada",10000.00,tl)
+//            userList.add(user)
+//            userList.add(user2)
             return userList
         }
 
