@@ -22,7 +22,6 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
             startFragment(UserDetailsFragment.getInstance())
         }
         logout.setOnClickListener {
-
             dialogFragment = MyDialogFragment()
             dialogFragment!!.setOnDialogClickListener(this)
             val fm = supportFragmentManager
@@ -42,7 +41,8 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
         super.onStop()
         dialogFragment?.removeListener()
     }
-    private fun startFragment(fragment:Fragment){
+
+    private fun startFragment(fragment: Fragment) {
         val manager: FragmentManager = supportFragmentManager
         val transaction: FragmentTransaction = manager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment, YOUR_FRAGMENT_STRING_TAG)
