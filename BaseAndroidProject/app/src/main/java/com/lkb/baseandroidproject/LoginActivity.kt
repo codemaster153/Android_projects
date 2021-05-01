@@ -1,10 +1,12 @@
 package com.lkb.baseandroidproject
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
@@ -33,10 +35,23 @@ class LoginActivity : BaseActivity() {
             signIn()
         }
     }
-
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            if (result!!.isSuccess) {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = result.signInAccount
+                firebaseAuthWithGoogle(account!!)
+            } else {
+                // Google Sign In failed, update UI appropriately
+            }
+        }
+    }
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        resultLauncher.launch(signInIntent)
     }
 
     companion object {
@@ -59,20 +74,6 @@ class LoginActivity : BaseActivity() {
                 }
                 hideProgressDialog()
             }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            if (result!!.isSuccess) {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = result.signInAccount
-                firebaseAuthWithGoogle(account!!)
-            } else {
-                // Google Sign In failed, update UI appropriately
-            }
-        }
     }
 
     private fun updateUI(user: FirebaseUser?) {

@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.user_details_layout.view.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserDetailsFragment : Fragment(), UserDataAdapter.OnItemClickListener {
-    var list: List<User> = mutableListOf<User>()
-    private val viewModel: MainViewModel by viewModel()
+    var list: List<User> = mutableListOf()
+    private val viewModel by sharedViewModel<MainViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,6 +47,8 @@ class UserDetailsFragment : Fragment(), UserDataAdapter.OnItemClickListener {
     }
 
     override fun onListItemClick(position: Int) {
-        Toast.makeText(context, "${list[position].name}  -- clicked", Toast.LENGTH_SHORT).show()
+        (activity as MainActivity).startUserTransactionFragment(list[position])
+        viewModel.selectedUser = list[position]
+        viewModel.selectedUserUUID = list[position].uuid.toString()
     }
 }

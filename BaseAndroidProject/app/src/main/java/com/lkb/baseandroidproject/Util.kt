@@ -1,5 +1,8 @@
 package com.lkb.baseandroidproject
 
+import android.util.Log
+import java.time.Instant
+
 class Util {
     companion object {
         /**
@@ -14,6 +17,13 @@ class Util {
                 "${preText[0].toCharArray()[0]}${preText[1].toCharArray()[0]}$phoneNumber".toLowerCase()
             else
                 "xx$phoneNumber"
+        }
+        fun dLog(msg:String){
+            if(BuildConfig.DEBUG)
+            Log.d("Prinstar",msg)
+        }
+        fun getCurrentTimeEpoch(): Long {
+            return Instant.now().epochSecond
         }
     }
 }

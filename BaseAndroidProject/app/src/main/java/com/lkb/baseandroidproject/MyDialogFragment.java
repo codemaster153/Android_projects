@@ -57,19 +57,13 @@ public class MyDialogFragment extends DialogFragment {
 
         // "Cancel" button
         Button buttonNeg = (Button) dialogView.findViewById(R.id.neg_button);
-        buttonNeg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //showToast(getString(R.string.neg_button));
-                // If shown as dialog, cancel the dialog (cancel --> dismiss)
-                if (getShowsDialog()) {
-                    getDialog().cancel();
-                    listener.onFailure();
-                }
-                // If shown as Fragment, dismiss the DialogFragment (remove it from view)
-                else
-                    dismiss();
+        buttonNeg.setOnClickListener(v -> {
+            if (getShowsDialog()) {
+                getDialog().cancel();
+                listener.onFailure();
             }
+            else
+                dismiss();
         });
 
         return dialogView;

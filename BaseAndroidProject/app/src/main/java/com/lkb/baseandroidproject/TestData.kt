@@ -6,15 +6,15 @@ class TestData {
     companion object{
         fun getUserData(): MutableList<User> {
             val userList = mutableListOf<User>()
-            val transaction = Transaction(1.toString(),50.00, Date().time)
-            val transaction2 = Transaction(1.toString(),-40.00, Date().time)
+            val transaction = Transaction(50.00, Date().time)
+            val transaction2 = Transaction(-40.00, Date().time)
             val transctionList = mutableListOf<Transaction>()
             transctionList.add(transaction)
             transctionList.add(transaction2)
 
             val tl = mutableListOf<Transaction>()
-            val t1 = Transaction(1.toString(),1000.00, Date().time)
-            val t2 = Transaction(1.toString(),-400.00, Date().time)
+            val t1 = Transaction(1000.00, Date().time)
+            val t2 = Transaction(-400.00, Date().time)
             tl.add(t1)
             tl.add(t2)
 

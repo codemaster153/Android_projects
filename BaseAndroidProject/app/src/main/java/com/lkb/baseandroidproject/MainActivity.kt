@@ -14,6 +14,8 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         toolbar.setTitle(R.string.app_name)
+        dialogFragment = MyDialogFragment()
+        dialogFragment!!.setOnDialogClickListener(this)
 
         user_registration.setOnClickListener {
             startFragment(CreateUserFragment.getInstance())
@@ -22,8 +24,6 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
             startFragment(UserDetailsFragment.getInstance())
         }
         logout.setOnClickListener {
-            dialogFragment = MyDialogFragment()
-            dialogFragment!!.setOnDialogClickListener(this)
             val fm = supportFragmentManager
             dialogFragment!!.show(fm, getString(R.string.dialog_tag))
         }
@@ -47,5 +47,15 @@ class MainActivity : BaseActivity(), MyDialogFragment.DialogClickListener {
         val transaction: FragmentTransaction = manager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment, YOUR_FRAGMENT_STRING_TAG)
         transaction.commit()
+    }
+    fun startUserTransactionFragment(user: User){
+        val bundle = Bundle()
+        bundle.putParcelable("user", user)
+        val userInteractionFragment = UserInteractionFragment.getInstance()
+        userInteractionFragment.arguments = bundle
+        startFragment(userInteractionFragment)
+    }
+    fun startViewAllTransactionFragment(fragment:Fragment){
+        startFragment(fragment)
     }
 }
