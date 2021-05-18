@@ -25,7 +25,7 @@ class TransactionDataAdapter(private var dataSet: List<Transaction>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.transactionDate.text = Util.fromEpochToDate(dataSet[position].date)
+        holder.transactionDate.text = Util.fromEpochToDate(dataSet[position].transactionDate)
         if(dataSet[position].amount<0){
             holder.transactionType.setTextColor(Color.RED)
         }else{

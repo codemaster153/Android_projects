@@ -23,6 +23,8 @@ class BottomDialog : BottomSheetDialogFragment() {
         val rootView = inflater.inflate(R.layout.bottom_sheet_layout, null)
         configUrl = rootView.findViewById(R.id.etConfigUrl)
         configUrl?.setText((viewModel as LoginViewModel).getPrefValue("config"))
+        //for testing
+        configUrl.setText("https://bluesky15.github.io/prinstar/testConfig.json")
         return rootView
     }
 

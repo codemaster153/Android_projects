@@ -1,11 +1,13 @@
 package com.lkb.prinstarr
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.parcel.Parcelize
 
 @IgnoreExtraProperties
 @Parcelize
+@Keep
 class User constructor() : Parcelable {
     var uuid: String? = null
     var contact: String? = null

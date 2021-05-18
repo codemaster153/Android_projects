@@ -8,8 +8,8 @@
         tools:context=".view.login.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="223dp"
+            android:layout_height="83dp"
             app:srcCompat="@drawable/ic_prinstar"
             android:id="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"

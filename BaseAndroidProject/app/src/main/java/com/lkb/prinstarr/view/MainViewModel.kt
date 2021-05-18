@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.DatabaseReference
-import com.lkb.prinstarr.DB_NAME
 import com.lkb.prinstarr.Transaction
 import com.lkb.prinstarr.User
 import com.lkb.prinstarr.Util
@@ -63,7 +62,7 @@ class MainViewModel(private val pref:SharedPreferences,private val dataBase: Dat
     fun updateUser(user: User, transaction: Transaction): LiveData<String> {
         user.uuid?.let {
             dataBase.child(Util.getDBPath(pref)).child(it).child("transactions")
-                .child("${Util.getCurrentTimeEpoch()}").setValue(transaction)
+                .child("${System.currentTimeMillis()}").setValue(transaction)
                 .addOnSuccessListener { result.setValue("Success") }
                 .addOnFailureListener { result.setValue("Failed") }
         }

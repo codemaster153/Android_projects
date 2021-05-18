@@ -6,21 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.lkb.prinstarr.R
-import com.lkb.prinstarr.Transaction
-import com.lkb.prinstarr.User
-import com.lkb.prinstarr.Util
+import com.lkb.prinstarr.*
+import com.lkb.prinstarr.Util.Companion.convertStrToEpoch
 import com.lkb.prinstarr.view.MainActivity
 import com.lkb.prinstarr.view.MainViewModel
 import kotlinx.android.synthetic.main.user_interaction_layout.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 class UserInteractionFragment : Fragment() {
     private val viewModel by sharedViewModel<MainViewModel>()
-    private var localTransaction = mutableListOf<Transaction>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,49 +25,99 @@ class UserInteractionFragment : Fragment() {
         mView.tvUserName.text = viewModel.selectedUser?.name
         mView.tvUserLimit.text = viewModel.selectedUser?.limit.toString()
         mView.tvAddress.text = viewModel.selectedUser?.address
-        mView.btnViewAllTransaction.setOnClickListener{
+        mView.btnViewAllTransaction.setOnClickListener {
             viewModel.inValidateData()
             (activity as MainActivity).startViewAllTransactionFragment(TransactionDetailsFragment.getInstance())
         }
         mView.btnNewCredit.setOnClickListener {
-            update(
-                viewModel.selectedUser,
-                mView.editTextDate.text.toString(),
-                -mView.etTransactionAmount.text.toString().toDouble()
-            )
+            if(mView.etCreditDays.text.toString().isEmpty())
+                mView.etCreditDays.setText("30")
+            when {
+                mView.etTransactionAmount.text.toString().isEmpty() -> {
+                    context?.let { it1 ->
+                        toast(
+                            it1,
+                            "Amount should not be Empty"
+                        )
+                    }
+                }
+                mView.editTextDate.text.toString().isEmpty() -> {
+                    update(
+                        viewModel.selectedUser,
+                        mView.editTextDate.text.toString(),
+                        -mView.etTransactionAmount.text.toString().toDouble(),
+                        mView.etCreditDays.text.toString().toInt()
+                    )
+                }
+                Util.isValidDate(mView.editTextDate.text.toString()) -> {
+                    update(
+                        viewModel.selectedUser,
+                        mView.editTextDate.text.toString(),
+                        -mView.etTransactionAmount.text.toString().toDouble(),
+                        mView.etCreditDays.text.toString().toInt()
+                    )
+                }
+                else -> {
+                    context?.let { it1 ->
+                        toast(
+                            it1,
+                            "Please enter valid date in dd-mm-yyyy format"
+                        )
+                    }
+                }
+            }
 
         }
         mView.btnAddCollection.setOnClickListener {
-            update(
-                viewModel.selectedUser,
-                mView.editTextDate.text.toString(),
-                mView.etTransactionAmount.text.toString().toDouble()
-            )
+            when {
+                mView.etTransactionAmount.text.toString().isEmpty() -> {
+                    context?.let { it1 ->
+                        toast(
+                            it1,
+                            "Amount should not be Empty"
+                        )
+                    }
+                }
+              mView.editTextDate.text.toString().isEmpty() -> {
+                    update(
+                        viewModel.selectedUser,
+                        mView.editTextDate.text.toString(),
+                        mView.etTransactionAmount.text.toString().toDouble(),
+                        mView.etCreditDays.text.toString().toInt()
+                    )
+                }
+                Util.isValidDate(mView.editTextDate.text.toString()) -> {
+                    update(
+                        viewModel.selectedUser,
+                        mView.editTextDate.text.toString(),
+                        mView.etTransactionAmount.text.toString().toDouble(),
+                        mView.etCreditDays.text.toString().toInt()
+                    )
+                }
+                else -> {
+                    context?.let { it1 ->
+                        toast(
+                            it1,
+                            "Please enter valid date in dd-mm-yyyy format"
+                        )
+                    }
+                }
+            }
+
         }
         return mView
     }
 
-    private fun createNewTransaction(timeStr: String, amount: Double): Transaction {
-        var time: Long = 0
-        if (timeStr.isNotEmpty()) {
-            time = LocalDate.parse(
-                timeStr,
-                DateTimeFormatter.ofPattern("dd-MM-uuuu")
-            )
-                .atStartOfDay(
-                    ZoneId.of("Asia/Kolkata")  // Or use `ZoneOffset.UTC` instead of a zone.
-                )
-                .toInstant()
-                .toEpochMilli()
-        } else {
-            time = Util.getCurrentTimeEpoch()
-        }
-        return Transaction(amount, time)
+    private fun createNewTransaction(timeStr: String, amount: Double, creditDays: Int): Transaction {
+        var time: Long = convertStrToEpoch(timeStr)
+        return Transaction(amount, time,false,"",creditDays)
     }
 
-    private fun update(user: User?, timeStr: String, amount: Double) {
+
+
+    private fun update(user: User?, timeStr: String, amount: Double, creditDays:Int) {
         user?.let {
-            viewModel.updateUser(it, createNewTransaction(timeStr, amount))
+            viewModel.updateUser(it, createNewTransaction(timeStr, amount, creditDays))
                 .observe(viewLifecycleOwner, { result ->
                     if (result.contentEquals("Success")) {
                         Toast.makeText(context, "Transaction Successful ", Toast.LENGTH_SHORT)
