@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lkb.prinstarr.R
 import com.lkb.prinstarr.view.MainViewModel
 import kotlinx.android.synthetic.main.transaction_detail_layout.view.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class TransactionDetailsFragment : Fragment() {
     private val viewModel by sharedViewModel<MainViewModel>()

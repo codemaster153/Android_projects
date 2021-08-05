@@ -10,7 +10,7 @@ import com.lkb.prinstarr.R
 import com.lkb.prinstarr.view.MainViewModel
 import kotlinx.android.synthetic.main.create_user_layout.*
 import kotlinx.android.synthetic.main.create_user_layout.view.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class CreateUserFragment : Fragment() {
     private val viewModel by sharedViewModel<MainViewModel>()

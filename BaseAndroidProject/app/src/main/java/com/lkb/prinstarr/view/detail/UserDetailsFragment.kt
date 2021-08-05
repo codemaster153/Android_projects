@@ -12,7 +12,7 @@ import com.lkb.prinstarr.User
 import com.lkb.prinstarr.view.MainActivity
 import com.lkb.prinstarr.view.MainViewModel
 import kotlinx.android.synthetic.main.user_details_layout.view.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class UserDetailsFragment : Fragment(), UserDataAdapter.OnItemClickListener {
     var list: List<User> = mutableListOf()

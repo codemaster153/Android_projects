@@ -35,8 +35,8 @@ class LoginViewModel(
         return shouldRun
     }
 
-    fun isStringPrefsPresent(key: String): Boolean {
-        return pref.getString(key, "").isNotEmpty()
+    fun isStringPrefsPresent(key: String): Boolean? {
+        return pref.getString(key, "")?.isNotEmpty()
     }
 
     fun getPrefValue(key: String): String? {

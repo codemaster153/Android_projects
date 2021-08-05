@@ -23,15 +23,17 @@ class MainViewModel(private val pref:SharedPreferences,private val dataBase: Dat
         viewModelScope.launch {
             var list = mutableListOf<User>()
             if (userList.isEmpty()) {
-                dataBase.child(Util.getDBPath(pref)).get().addOnSuccessListener { it ->
-                    val iterator = it.children
-                    iterator.forEach {
-                        it.getValue(User::class.java)?.let { it1 -> list.add(it1) }
+                Util.getDBPath(pref)?.let {
+                    dataBase.child(it).get().addOnSuccessListener { it ->
+                        val iterator = it.children
+                        iterator.forEach {
+                            it.getValue(User::class.java)?.let { it1 -> list.add(it1) }
+                        }
+                        userList.addAll(list)
+                        userData.setValue(list)
+                    }.addOnFailureListener {
+                        Log.e("firebase", "Error getting data", it)
                     }
-                    userList.addAll(list)
-                    userData.setValue(list)
-                }.addOnFailureListener {
-                    Log.e("firebase", "Error getting data", it)
                 }
             } else {
                 userData.setValue(userList)
@@ -47,24 +49,28 @@ class MainViewModel(private val pref:SharedPreferences,private val dataBase: Dat
             user.name!!
         )
         user.uuid = uuid
-        dataBase.child(Util.getDBPath(pref)).child(uuid)
-            .setValue(user)
-            .addOnSuccessListener {
-                result.setValue("Success")
+        Util.getDBPath(pref)?.let {
+            dataBase.child(it).child(uuid)
+                .setValue(user)
+                .addOnSuccessListener {
+                    result.setValue("Success")
 
-            }
-            .addOnFailureListener {
-                result.setValue("Failed")
-            }
+                }
+                .addOnFailureListener {
+                    result.setValue("Failed")
+                }
+        }
         return result
     }
 
     fun updateUser(user: User, transaction: Transaction): LiveData<String> {
         user.uuid?.let {
-            dataBase.child(Util.getDBPath(pref)).child(it).child("transactions")
-                .child("${System.currentTimeMillis()}").setValue(transaction)
-                .addOnSuccessListener { result.setValue("Success") }
-                .addOnFailureListener { result.setValue("Failed") }
+            Util.getDBPath(pref)?.let { it1 ->
+                dataBase.child(it1).child(it).child("transactions")
+                    .child("${System.currentTimeMillis()}").setValue(transaction)
+                    .addOnSuccessListener { result.setValue("Success") }
+                    .addOnFailureListener { result.setValue("Failed") }
+            }
         }
         return result
     }

@@ -52,7 +52,7 @@ class Util {
             pref.edit().putString(key, value).apply()
         }
 
-        fun getDBPath(pref: SharedPreferences): String {
+        fun getDBPath(pref: SharedPreferences): String? {
             return pref.getString("dbPath", "prinstar_fallback")
         }
 

@@ -21,7 +21,7 @@ import com.lkb.prinstarr.view.BaseActivity
 import com.lkb.prinstarr.view.BottomDialog
 import com.lkb.prinstarr.view.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity() {
     private val viewModel by viewModel<LoginViewModel>()
@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity() {
         btnSingIn.setOnClickListener {
             //check for config file
 
-            if (!viewModel.isStringPrefsPresent("config")) {
+            if (!viewModel.isStringPrefsPresent("config")!!) {
                 showBottomSheet()
             } else if (viewModel.isValidConfig() && viewModel.hasRunPermission()) {
                 viewModel.getConfiguration().observe(this, {

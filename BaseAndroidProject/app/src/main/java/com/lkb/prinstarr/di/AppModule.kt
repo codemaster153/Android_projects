@@ -10,7 +10,7 @@ import com.lkb.prinstarr.SHARED_PREF_NAME
 import com.lkb.prinstarr.view.login.LoginViewModel
 import com.lkb.prinstarr.view.MainViewModel
 import org.koin.android.ext.koin.androidApplication
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {

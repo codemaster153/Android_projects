@@ -11,7 +11,7 @@ import com.lkb.prinstarr.Util.Companion.convertStrToEpoch
 import com.lkb.prinstarr.view.MainActivity
 import com.lkb.prinstarr.view.MainViewModel
 import kotlinx.android.synthetic.main.user_interaction_layout.view.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class UserInteractionFragment : Fragment() {
     private val viewModel by sharedViewModel<MainViewModel>()

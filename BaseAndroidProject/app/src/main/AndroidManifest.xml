@@ -15,7 +15,8 @@
         <activity
                 android:name="com.lkb.prinstarr.view.login.LoginActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme_No_toolbar">
+                android:theme="@style/AppTheme_No_toolbar"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
