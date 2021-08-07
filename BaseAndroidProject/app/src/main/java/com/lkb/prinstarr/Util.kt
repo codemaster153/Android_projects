@@ -57,8 +57,8 @@ class Util {
         }
 
         fun fromEpochToDate(epoch: Long): String {
-            val date = Date(epoch * 1000L)
-            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val date = Date(epoch)
+            val sdf = SimpleDateFormat("dd-MM-yyyy")
             sdf.timeZone = TimeZone.getTimeZone("GMT+05:30")
             return sdf.format(date)
         }

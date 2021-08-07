@@ -15,12 +15,15 @@ class LoginViewModel(
     private val configUseCase: ConfigUseCase
 ) :
     ViewModel() {
-    private var shouldRun = MutableLiveData<Boolean>()
-    fun getConfiguration(): LiveData<Boolean> {
+     var localConfig:LocalConfig ? = null
+    private var _shouldRun = MutableLiveData<Boolean>()
+    var shouldRun:LiveData<Boolean> = _shouldRun
+
+    fun getConfiguration(){
         val url = pref.getString("config", "http://localhost/")
         configUseCase.invoke(viewModelScope, url, object : UseCaseResponse<LocalConfig> {
             override fun onSuccess(result: LocalConfig) {
-                shouldRun.value = result.shouldRun
+                localConfig = result
                 if (result.dbPath != null) {
                     Util.updatePref(pref, "dbPath", result.dbPath)
                 }
@@ -28,11 +31,10 @@ class LoginViewModel(
 
             override fun onError(apiError: String?) {
                 Util.dLog(apiError.toString())
-                shouldRun.value = false
+                _shouldRun.value = false
             }
 
         })
-        return shouldRun
     }
 
     fun isStringPrefsPresent(key: String): Boolean? {

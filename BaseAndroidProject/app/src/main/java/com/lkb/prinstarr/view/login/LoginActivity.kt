@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
@@ -16,15 +17,22 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.lkb.prinstarr.R
 import com.lkb.prinstarr.view.BaseActivity
 import com.lkb.prinstarr.view.BottomDialog
 import com.lkb.prinstarr.view.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import com.google.android.gms.common.api.GoogleApiClient
 
-class LoginActivity : BaseActivity() {
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.ConnectionResult
+import com.lkb.prinstarr.R
+
+
+class LoginActivity : BaseActivity(){
     private val viewModel by viewModel<LoginViewModel>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Remove title bar
@@ -35,9 +43,20 @@ class LoginActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.activity_login)
+
+        // Configure Google Sign In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        mAuth = FirebaseAuth.getInstance()
+
         mAuthListener = AuthStateListener { firebaseAuth: FirebaseAuth ->
             updateUI(firebaseAuth.currentUser)
         }
+        viewModel.getConfiguration()
         btnSetting.setOnClickListener {
             showBottomSheet()
         }
@@ -46,14 +65,8 @@ class LoginActivity : BaseActivity() {
 
             if (!viewModel.isStringPrefsPresent("config")!!) {
                 showBottomSheet()
-            } else if (viewModel.isValidConfig() && viewModel.hasRunPermission()) {
-                viewModel.getConfiguration().observe(this, {
-                    if (it) signIn() else Toast.makeText(
-                        this,
-                        "You are not Allowed to Log In",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                })
+            } else if (viewModel.localConfig?.shouldRun == true) {
+                signIn()
             } else {
                 Toast.makeText(this, "you do not have valid config", Toast.LENGTH_SHORT).show()
             }
@@ -73,7 +86,7 @@ class LoginActivity : BaseActivity() {
                     val account = result.signInAccount
                     firebaseAuthWithGoogle(account!!)
                 } else {
-                    // Google Sign In failed, update UI appropriately
+                    Toast.makeText(this,result.toString(),Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -94,12 +107,15 @@ class LoginActivity : BaseActivity() {
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task: Task<AuthResult?> ->
-                Log.d(
-                    TAG,
-                    "signInWithCredential:onComplete:" + task.isSuccessful
-                )
-                if (!task.isSuccessful) {
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success")
+                    val user = mAuth.currentUser
+                    updateUI(user)
                 } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    updateUI(null)
                 }
                 hideProgressDialog()
             }
@@ -135,10 +151,6 @@ class LoginActivity : BaseActivity() {
             "BottomDialog"
         )
     }
-
-//    fun createPreference(value: String) {
-//        viewModel.createPrefrence("config", value)
-//    }
 
 
 }
