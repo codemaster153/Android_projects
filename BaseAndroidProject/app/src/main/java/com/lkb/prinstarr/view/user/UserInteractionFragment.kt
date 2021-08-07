@@ -118,14 +118,14 @@ class UserInteractionFragment : Fragment() {
     private fun update(user: User?, timeStr: String, amount: Double, creditDays:Int) {
         user?.let {
             viewModel.updateUser(it, createNewTransaction(timeStr, amount, creditDays))
-                .observe(viewLifecycleOwner, { result ->
+                .observe(viewLifecycleOwner) { result ->
                     if (result.contentEquals("Success")) {
                         Toast.makeText(context, "Transaction Successful ", Toast.LENGTH_SHORT)
                             .show()
                     } else {
                         Toast.makeText(context, "Transaction Failed", Toast.LENGTH_SHORT).show()
                     }
-                })
+                }
         }
     }
 
