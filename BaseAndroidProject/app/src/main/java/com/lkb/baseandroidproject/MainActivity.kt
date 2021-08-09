@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -18,9 +18,10 @@ class MainActivity : AppCompatActivity() {
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels
         Log.d("PIXEL", "height is $height and Width is $width")
-        val viewManager = GridLayoutManager(this, 4)
+        val viewManager = LinearLayoutManager(this)
         recyclerView.apply {
-            adapter = RecyclerViewAdapter(width-(32+4*8), height)
+            adapter = DummyAdapter(width-(32+4*8), height)
+            (adapter as DummyAdapter).recyclerData = mutableListOf("hello", "hi")
             layoutManager = viewManager
         }
     }
