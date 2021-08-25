@@ -19,9 +19,9 @@ class Util {
         fun generateUserId(phoneNumber: Long, name: String): String {
             val preText = name.trim().split(" ")
             return if (preText.size < 2 && preText[0].length > 2)
-                "${preText[0].toCharArray()[0]}${preText[0].toCharArray()[1]}$phoneNumber".toLowerCase()
+                "${preText[0].toCharArray()[0]}${preText[0].toCharArray()[1]}$phoneNumber".lowercase()
             else if (preText.size == 2 && preText[0].length > 2 && preText[1].length > 2)
-                "${preText[0].toCharArray()[0]}${preText[1].toCharArray()[0]}$phoneNumber".toLowerCase()
+                "${preText[0].toCharArray()[0]}${preText[1].toCharArray()[0]}$phoneNumber".lowercase()
             else
                 "xx$phoneNumber"
         }

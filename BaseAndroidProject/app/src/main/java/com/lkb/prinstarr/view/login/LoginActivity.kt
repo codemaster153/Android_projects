@@ -49,14 +49,13 @@ class LoginActivity : BaseActivity(){
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-
+        viewModel.getConfiguration()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         mAuth = FirebaseAuth.getInstance()
 
         mAuthListener = AuthStateListener { firebaseAuth: FirebaseAuth ->
             updateUI(firebaseAuth.currentUser)
         }
-        viewModel.getConfiguration()
         btnSetting.setOnClickListener {
             showBottomSheet()
         }
