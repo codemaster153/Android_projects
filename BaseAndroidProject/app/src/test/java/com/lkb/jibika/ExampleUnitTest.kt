@@ -1,4 +1,4 @@
-package com.lkb.baseandroidproject
+package com.lkb.jibika
 
 import org.junit.Test
 

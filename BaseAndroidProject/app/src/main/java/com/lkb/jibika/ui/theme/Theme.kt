@@ -1,4 +1,4 @@
-package com.lkb.baseandroidproject.ui.theme
+package com.lkb.jibika.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

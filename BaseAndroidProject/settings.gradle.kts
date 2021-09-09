@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "BaseAndroidProject"
 include(":app")
+include(":data")

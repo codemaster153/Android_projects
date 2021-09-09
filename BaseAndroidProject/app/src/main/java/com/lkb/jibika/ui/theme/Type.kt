@@ -1,4 +1,4 @@
-package com.lkb.baseandroidproject.ui.theme
+package com.lkb.jibika.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
