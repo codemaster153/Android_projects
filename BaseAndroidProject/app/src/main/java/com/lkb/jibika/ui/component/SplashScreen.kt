@@ -24,7 +24,7 @@ fun SplashScreen() {
     val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceAround,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
@@ -40,7 +40,7 @@ fun SplashScreen() {
                 })
         }
         // Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
-        val centreImage: Painter = painterResource(id = R.drawable.baby)
+        val centreImage: Painter = painterResource(id = R.drawable.ic_img_one)
         Image(painter = centreImage, contentDescription = "")
         //  }
         Column(
@@ -63,7 +63,7 @@ fun SplashScreen() {
                 textAlign = TextAlign.Center,
                 modifier =
                 Modifier
-                    .padding(top = 8.dp, start = 90.dp, end = 90.dp)
+                    .padding(top = 8.dp, start = 60.dp, end = 60.dp)
                     .clickable {
                         Toast
                             .makeText(context, "Skip clicked", Toast.LENGTH_SHORT)
