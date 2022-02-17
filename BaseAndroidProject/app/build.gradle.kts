@@ -8,7 +8,6 @@ plugins {
 
 android {
     compileSdkVersion(30)
-    buildToolsVersion = "30.0.2"
 
     defaultConfig {
         applicationId = "com.lkb.assignment"
@@ -16,7 +15,7 @@ android {
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "https://jsonplaceholder.typicode.com")
+        buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -82,4 +81,6 @@ dependencies {
 //    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 //    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 //    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //view pager 2
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }
