@@ -8,7 +8,6 @@ plugins {
 
 android {
     compileSdkVersion(30)
-    buildToolsVersion = "30.0.2"
 
     defaultConfig {
         applicationId = "com.lkb.assignment"
@@ -16,7 +15,7 @@ android {
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "https://jsonplaceholder.typicode.com")
+        buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
