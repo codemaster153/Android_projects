@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(const MyApp());
 
@@ -45,9 +46,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const platform = MethodChannel('MyNativeChannel');
+  String msg = "No Message";
   int _counter = 0;
+  Future<void> getData() async {
+    int message = 0;
+    try {
+      message = await platform.invokeMethod('getData');
+      print(message);
+    } on PlatformException catch (e) {
+      //message = "Failed to get data from native : '${e.message}'.";
+      print(e);
+    }
+    setState(() {
+      _counter = message;
+    });
+  }
 
   void _incrementCounter() {
+    getData();
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -103,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: getData,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
