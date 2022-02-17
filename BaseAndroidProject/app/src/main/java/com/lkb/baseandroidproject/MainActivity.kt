@@ -3,6 +3,7 @@ package com.lkb.baseandroidproject
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.lkb.baseandroidproject.databinding.ActivityMainBinding
+import io.flutter.embedding.android.FlutterActivity;
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -11,6 +12,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        binding.btnFlutterScreen.setOnClickListener { }
+        binding.btnFlutterScreen.setOnClickListener {
+            startActivity(
+                FlutterActivity.createDefaultIntent(this)
+            )
+        }
     }
 }
