@@ -22,6 +22,7 @@ fun main(){
     val s2 = Sub(c1,c2)
     val res1 = eval(s1)
     val res2 = eval(s2)
+    println(eval(c1))
     println("Result1 = $res1")
     println("Result2 = $res2")
 }
