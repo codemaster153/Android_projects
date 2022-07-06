@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 32
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
         applicationId = "com.lkb.baseandroidproject"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 32
         versionCode = 1
         versionName = "1.0"
 
@@ -35,7 +35,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        useIR = true
     }
     buildFeatures {
         compose = true
@@ -53,8 +52,10 @@ dependencies {
     implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
     implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
     implementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
+    implementation("androidx.compose.foundation:foundation:${rootProject.extra["compose_version"]}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.activity:activity-compose:1.3.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
