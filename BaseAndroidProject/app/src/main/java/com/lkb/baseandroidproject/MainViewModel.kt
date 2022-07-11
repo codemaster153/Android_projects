@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 
 class MainViewModel:ViewModel() {
 
-    val countDownFlow = flow<Int> {
+    val countDownFlow = flow {
         val initialValue = 10
         var currentValue = initialValue
         emit(currentValue)

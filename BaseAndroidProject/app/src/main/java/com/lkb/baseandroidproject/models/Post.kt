@@ -1,0 +1,1 @@
+data class Post(val heading:String, val message:String)
