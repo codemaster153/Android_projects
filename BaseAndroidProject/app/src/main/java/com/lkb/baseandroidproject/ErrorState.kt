@@ -1,0 +1,1 @@
+data class ErrorState(val errorMessage:String)

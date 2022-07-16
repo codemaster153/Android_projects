@@ -27,6 +27,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"${"https://jsonplaceholder.typicode.com"}\"")
+        }
+        debug {
+            buildConfigField("String", "BASE_URL", "\"${"https://jsonplaceholder.typicode.com"}\"")
         }
     }
     compileOptions {
@@ -57,9 +61,9 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.0-rc01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 //    Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.7.2")
-    implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
-    implementation ("com.squareup.okhttp3:okhttp:3.6.0")
+    implementation("com.squareup.retrofit2:retrofit:2.7.2")
+    implementation("com.squareup.retrofit2:converter-gson:2.7.2")
+    implementation("com.squareup.okhttp3:okhttp:3.6.0")
 
     testImplementation("junit:junit:4.+")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

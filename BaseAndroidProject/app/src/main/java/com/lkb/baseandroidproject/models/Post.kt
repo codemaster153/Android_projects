@@ -1,1 +1,2 @@
-data class Post(val heading:String, val message:String)
+
+data class Post(val userId:String, val id:String, val title:String, val body: String)
