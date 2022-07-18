@@ -1,5 +1,21 @@
 package com.lkb.baseandroidproject
 
+//return n-th fibonacci number
+fun fib(n: Int): Int {
+    var a = 1
+    var b = 1
+    var c = 0
+    if (n == 0) return 0
+    if (n == 1) return 1
+    if (n == 2) return 1
+    for (i in 3..n) {
+        c = a + b
+        a = b
+        b = c
+    }
+    return c
+}
+
 /* infix
 fun main() {
     println("Hello world!")
@@ -84,8 +100,8 @@ class MyMath {
 //    taskThree()
 //}
 
-fun main() {
-    var list = mutableListOf<Int>(7, 8, 9)
-    var f = list.mapIndexed { i, e -> if (e % 2 == 0) i else 0 }.filter { it != 0 }[0]
-    print(f)
-}
+//fun main() {
+//    var list = mutableListOf<Int>(7, 8, 9)
+//    var f = list.mapIndexed { i, e -> if (e % 2 == 0) i else 0 }.filter { it != 0 }[0]
+//    print(f)
+//}
