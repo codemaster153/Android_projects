@@ -2,19 +2,16 @@ import kotlinx.coroutines.*
 
 fun main() = runBlocking { // this: CoroutineScope
     doWorld()
-    println("Done")
 }
 
 suspend fun doWorld() = coroutineScope {
-    launch {
-        delay(2000L)
-        println("World2")
-    }
-    launch {
+    val job = launch {
         delay(1000L)
-        println("World1")
+        println("World")
     }
     println("Hello")
+    job.join()
+    println("Done")
 }
 //fun main() {
 //    runBlocking {
