@@ -17,7 +17,7 @@ fun fib(n: Int): Int {
 }
 
 /* infix
-fun main() {
+fun com.lkb.baseandroidproject.croutine.main() {
     println("Hello world!")
     val math = MyMath()
     println(math addFive (5))
@@ -31,7 +31,7 @@ class MyMath {
 }*/
 
 
-//fun main() {
+//fun com.lkb.baseandroidproject.croutine.main() {
 //    // println(isMultipleOf(9,3))
 //    var list = arrayListOf<Int>()
 //    for (number in 1..10) {
@@ -70,7 +70,7 @@ class MyMath {
 //    return result
 //}
 
-//fun main(){
+//fun com.lkb.baseandroidproject.croutine.main(){
 //    myTask { middleTask() }
 //    myTask { taskTwo() }
 //    myTask { alsoInMiddle() }
@@ -100,7 +100,7 @@ class MyMath {
 //    taskThree()
 //}
 
-//fun main() {
+//fun com.lkb.baseandroidproject.croutine.main() {
 //    var list = mutableListOf<Int>(7, 8, 9)
 //    var f = list.mapIndexed { i, e -> if (e % 2 == 0) i else 0 }.filter { it != 0 }[0]
 //    print(f)

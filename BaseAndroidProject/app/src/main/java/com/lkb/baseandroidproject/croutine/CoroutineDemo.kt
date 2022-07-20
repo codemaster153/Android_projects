@@ -1,37 +1,48 @@
+package com.lkb.baseandroidproject.croutine
+
 import kotlinx.coroutines.*
 
-fun main() = runBlocking { // this: CoroutineScope
-    doWorld()
-}
+fun main() = runBlocking {
+    //withContext(){
+    val job = CoroutineScope(Dispatchers.IO).launch {
+        println("Hello")
+        printThreadName()
 
-suspend fun doWorld() = coroutineScope {
-    val job = launch {
-        delay(1000L)
-        println("World")
+
     }
-    println("Hello")
     job.join()
-    println("Done")
+    //}
 }
-//fun main() {
-//    runBlocking {
-//        printThreadName()
-//        for (i in 1..7) {
-//            val job = GlobalScope.async {
-//             bigTask()
-//            }
-//            //job.await()
-//        }
-//    }
-//
-//}
 
-fun printThreadName() {
-    println("the current thread ${Thread.currentThread()}")
-}
+
+suspend fun printThreadName() =
+    withContext(Dispatchers.IO) {
+        println("the current thread ${Thread.currentThread()}")
+        delay(1000L)
+
+        //}
+
+    }
 
 
 suspend fun bigTask() {
     printThreadName()
     delay(2000L)
 }
+
+suspend fun getValues(): List<Int> {
+    delay(1000L)
+    return (1..10).map { i -> i * i }
+}
+
+
+suspend fun getPosts(): List<Posts> {
+    delay(2000L)
+    return listOf<Posts>(
+        Posts("India wins", "India wins the T20 world cup"),
+        Posts("It will rain today", "Heavy rain expected this week on south states of India"),
+        Posts("Modi visits Varanasi", "Modi visiting varanasi on 30th of this month")
+    )
+}
+
+data class Posts(val title: String, val messages: String)
