@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         //i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         next.setOnClickListener(view -> startActivity(i));
 
-//        btnLoadFragment.setOnClickListener(v -> loadFragment()
-//        );
+        btnLoadFragment.setOnClickListener(v -> replaceFragment()
+        );
         loadFragment();
         Log.d("LKB-Activity1", "onCreate called");
     }
@@ -41,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.fragmentContainer, BlankFragment.newInstance("new", "fragment"), "blankFragment");
         ft.commit();
+        Log.d("LKB-Activity1", "Fragment load called - ft.add()");
+    }
+
+    private void replaceFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragmentContainer, BlankFragment2.Companion.newInstance("new", "fragment2"), "blankFragment2");
+        ft.commit();
+        Log.d("LKB-Activity1", "Fragment load called - ft.add()");
     }
 
     @Override
