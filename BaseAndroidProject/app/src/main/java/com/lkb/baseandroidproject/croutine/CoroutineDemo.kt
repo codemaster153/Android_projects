@@ -2,16 +2,37 @@ package com.lkb.baseandroidproject.croutine
 
 import kotlinx.coroutines.*
 
-fun main() = runBlocking {
-    //withContext(){
-    val job = CoroutineScope(Dispatchers.IO).launch {
-        println("Hello")
-        printThreadName()
+fun main() = runBlocking { //5,6, 7, 6, 6,
+    scopeFunctionTest()
+}
 
-
+fun scopeFunctionTest() {
+    val x = 5
+    val y = with(x) {
+        println(this) //prints value of x =5
+        inc() //value incremented and returned from here and got assigned to y =6
     }
-    job.join()
-    //}
+    println(y) // prints value of y which is = 6
+    val z = y.apply {
+        println(inc())
+        this.inc()
+    } // value of y incremented which is = 7 and gets printed - apply does not return the lambda value so z = y = 6
+    val a = x.run {
+        println(inc())
+        this.inc()
+    } // get incremented value of x -> 5+1 and printed 6 and value of
+    val b = x?.let {
+        println(it.inc())
+        it.inc()
+    }
+    val c = x?.also {
+        println(it.inc())
+        it.inc()
+    }
+    println(z)
+    println(a)
+    println(b)
+    println(c)
 }
 
 
