@@ -2,8 +2,18 @@ package com.lkb.baseandroidproject.croutine
 
 import kotlinx.coroutines.*
 
-fun main() = runBlocking { //5,6, 7, 6, 6,
-    scopeFunctionTest()
+fun main(): Unit = runBlocking { //5,6, 7, 6, 6,
+
+    launch {
+        bigTask(3000L)
+    }
+
+    launch {
+        bigTask(2000L)
+    }
+    launch {
+        bigTask(1000L)
+    }
 }
 
 fun scopeFunctionTest() {
@@ -46,9 +56,16 @@ suspend fun printThreadName() =
     }
 
 
-suspend fun bigTask() {
+suspend fun bigTask(time: Long) {
     printThreadName()
-    delay(2000L)
+    delay(time)
+    println("bigTask $time")
+}
+
+suspend fun bigTask2(): String {
+    printThreadName()
+    delay(4000L)
+    return "bigTask2"
 }
 
 suspend fun getValues(): List<Int> {
