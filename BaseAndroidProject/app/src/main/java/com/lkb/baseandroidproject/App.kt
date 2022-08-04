@@ -6,10 +6,8 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class App : Application() {
-    @Inject
-    lateinit var userRepository: UserRepository
+
     override fun onCreate() {
         super.onCreate()
-        userRepository.saveUserData("lalit", "1234")
     }
 }
