@@ -3,11 +3,8 @@ package com.lkb.baseandroidproject
 import android.util.Log
 import javax.inject.Inject
 
-const val TAG = "USER_REPOSITORY"
-
-class UserRepository @Inject constructor() {
-    val userName = "Lalit"
+class UserRepository @Inject constructor(val loggerService: LoggerService) {
     fun saveUserData(userName: String, password: String) {
-        Log.d(TAG, "$userName and $password")
+        loggerService.logMessage("$userName and $password")
     }
 }
