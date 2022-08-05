@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
     lateinit var ss: String
     @Inject
+    @FirebaseRepo
     lateinit var userRepository: UserRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

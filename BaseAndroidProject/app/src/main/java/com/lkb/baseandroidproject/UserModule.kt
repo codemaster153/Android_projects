@@ -9,7 +9,14 @@ import dagger.hilt.android.components.ActivityComponent
 @Module
 class UserModule {
     @Provides
-    fun provideUserRepository(): UserRepository {
+    @SQLRepo
+    fun provideSQLRepository(): UserRepository {
+        return SQLRepository()
+    }
+
+    @Provides
+    @FirebaseRepo
+    fun provideFirebaseRepository(): UserRepository {
         return FirebaseRepository()
     }
 }
