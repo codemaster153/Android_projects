@@ -11,8 +11,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var ss: String
-    lateinit var viewModel:MainViewModel
+    private lateinit var ss: String
+    private lateinit var viewModel:MainViewModel
     //private val viewModel: MainViewModel by viewModels()
 
     //    @Inject
