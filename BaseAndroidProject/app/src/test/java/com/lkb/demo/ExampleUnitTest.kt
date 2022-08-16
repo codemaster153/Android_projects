@@ -1,4 +1,4 @@
-package com.lkb.baseandroidproject
+package com.lkb.demo
 
 import org.junit.Test
 
