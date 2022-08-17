@@ -4,34 +4,22 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 
 class StockService : Service() {
+    private val job = SupervisorJob()
+    private val scope = CoroutineScope(Dispatchers.IO + job)
 
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-//        Thread {
-//            while (true) {
-//                Log.e("Service", "Service is running...")
-//                try {
-//                    Thread.sleep(2000)
-//                } catch (e: InterruptedException) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        }.start()
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             while (true) {
                 delay(2000)
-                Log.e("Service", "service is running")
+                Log.e("Service", "service is running on $coroutineContext")
             }
         }
         return super.onStartCommand(intent, flags, startId)
@@ -40,5 +28,7 @@ class StockService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        job.cancel()
+        Log.e("Service", "service destroyed")
     }
 }
