@@ -1,6 +1,7 @@
 package com.lkb.baseandroidproject.javademo;
 
 public class JavaDemo {
-   public static void helloWorld(){
+   public static void main(String[] args) {
+      System.out.println("hello world");
    }
 }
