@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import kotlinx.android.synthetic.main.global_offer_view_ab.view.*
 
 
 class CustomView : FrameLayout {
@@ -33,7 +32,7 @@ class CustomView : FrameLayout {
 
     private fun initViews(nothing: AttributeSet?) {
         View.inflate(context, R.layout.global_offer_view_ab, this)
-        tv_global_offer_msg.loadUrl("https://placeholder.com/")
+        //tv_global_offer_msg.loadUrl("https://placeholder.com/")
         Log.d("LKB!", "" + childCount)
         getChildAt(0).isClickable = false;
     }

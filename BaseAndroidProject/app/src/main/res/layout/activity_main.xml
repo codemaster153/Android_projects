@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.lkb.baseandroidproject.CustomView
-        android:id="@+id/customView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:layout_constraintEnd_toEndOf="parent"
+
+    |<com.lkb.baseandroidproject.TesterView
+        android:id="@+id/roundCornerRectangularView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Hello world"
-        android:descendantFocusability="blocksDescendants"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
