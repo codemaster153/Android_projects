@@ -42,6 +42,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
     }
+    namespace = "com.lkb.baseandroidproject"
 }
 
 dependencies {
