@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BaseAndroidProjectTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".QuizAppActivity"
             android:exported="true"
             android:theme="@style/Theme.BaseAndroidProjectTheme">
             <intent-filter>

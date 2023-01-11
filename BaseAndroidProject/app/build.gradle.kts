@@ -46,20 +46,28 @@ android {
 }
 
 dependencies {
+    //Compose Bom
+    val composeBom = platform("androidx.compose:compose-bom:2022.12.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    //material 3
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3-window-size-class")
+    // Android Studio Preview support
+    implementation ("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation ("androidx.compose.ui:ui-tooling")
+    // Integration with ViewModels
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    // Optional - Integration with activities
+    implementation ("androidx.activity:activity-compose:1.6.1")
+
+    // accompanist
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
     implementation("androidx.core:core-ktx:1.9.0")
-    //material 3
-    implementation("androidx.compose.material3:material3:1.0.1")
-    implementation("androidx.compose.material3:material3-window-size-class:1.0.1")
 
-    // Integration with activities
-    implementation ("androidx.activity:activity-compose:1.6.1")
-    // Animations
-    implementation ("androidx.compose.animation:animation:1.3.1")
-    // Tooling support (Previews, etc.)
-    implementation ("androidx.compose.ui:ui-tooling:1.3.1")
-    // Integration with ViewModels
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    // compose Navigation
+    implementation("androidx.navigation:navigation-compose:2.5.3")
 
     //coil
     implementation("io.coil-kt:coil:2.2.2")
@@ -67,7 +75,11 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     //
-    implementation ("com.google.accompanist:accompanist-flowlayout:0.24.8-beta")
+    implementation("com.google.accompanist:accompanist-flowlayout:0.24.8-beta")
+
+    //ktor
+    implementation("io.ktor:ktor-client-core:2.2.1")
+    implementation("io.ktor:ktor-client-cio:2.2.1")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.activity:activity-compose:1.7.0-alpha02")
@@ -76,5 +88,5 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     // UI Tests
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.3.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.1")
 }

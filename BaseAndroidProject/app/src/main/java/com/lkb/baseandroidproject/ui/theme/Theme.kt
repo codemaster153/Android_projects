@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 private val DarkColorPalette = darkColorScheme(
@@ -71,6 +72,7 @@ fun BaseAndroidProjectTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
+    //val systemUiController = rememberSystemUiController()
     val useDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val colors = when {
         useDynamicColors && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
@@ -78,6 +80,15 @@ fun BaseAndroidProjectTheme(
         darkTheme -> DarkColorPalette
         else -> LightColorPalette
     }
+//    if (darkTheme) {
+//        systemUiController.setSystemBarsColor(
+//            color = Color.Transparent
+//        )
+//    } else {
+//        systemUiController.setSystemBarsColor(
+//            color = Color.Transparent
+//        )
+//    }
 
     MaterialTheme(
         colorScheme = colors,
