@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        Text(text = "Hello world", modifier = Modifier.align(Alignment.Center))
+                        Text(text = "Hello world!!", modifier = Modifier.align(Alignment.Center))
                     }
                 }
             }
