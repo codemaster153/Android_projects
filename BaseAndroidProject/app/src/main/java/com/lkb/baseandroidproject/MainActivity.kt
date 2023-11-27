@@ -22,19 +22,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        binding.textView.text = ""
-        disposable = mViewModel.getData()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe {
-                binding.textView.text = it.toString();
-            }
-
         val clickListener = View.OnClickListener{
             when(it.id){
                 R.id.searchButton->{
                     val searchTextString = binding.searchText.text.toString()
-                    wikiDisposable = mViewModel.callHitcountWikiApi(searchTextString)
+                    wikiDisposable = mViewModel.callHitCount(searchTextString)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(
@@ -46,9 +38,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.searchButton.setOnClickListener(clickListener)
-
-
-
     }
 
     override fun onDestroy() {

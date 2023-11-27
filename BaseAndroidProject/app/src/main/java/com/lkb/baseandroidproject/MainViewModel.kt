@@ -9,11 +9,7 @@ class MainViewModel : ViewModel() {
         WikiApiService.create()
     }
 
-    fun getData(): Observable<String> {
-        return Observable.just("hello", "hi", "there")
-    }
-
-    fun callHitcountWikiApi(searchString:String):Observable<WikiModel.Result>{
+    fun callHitCount(searchString:String):Observable<WikiModel.Result>{
         return wikiApiService.hitCountCheck("query", "json", "search", searchString)
     }
 

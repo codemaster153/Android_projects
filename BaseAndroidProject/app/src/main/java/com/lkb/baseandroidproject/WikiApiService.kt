@@ -22,12 +22,8 @@ interface WikiApiService {
         fun create(): WikiApiService {
 
             val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(
-                    RxJava2CallAdapterFactory.create()
-                )
-                .addConverterFactory(
-                    GsonConverterFactory.create()
-                )
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://en.wikipedia.org/w/")
                 .build()
 
