@@ -1,7 +1,16 @@
 package com.lkb.baseandroidproject
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 object WikiModel {
-    data class Result(val query:Query)
-    data class Query(val searchinfo: SearchInfo)
-    data class SearchInfo(val totalhits: Int)
+    @Serializable
+    data class Result(@SerialName("query") val query: Query)
+
+    @Serializable
+    data class Query(@SerialName("searchinfo") val searchinfo: SearchInfo)
+
+    @Serializable
+    data class SearchInfo(@SerialName("totalhits") val totalhits: Int)
 }
