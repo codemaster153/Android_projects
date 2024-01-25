@@ -13,8 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.lkb.baseandroidproject.ui.theme.BaseAndroidProjectTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : ComponentActivity() {
+    val viewModel:MainViewModel by viewModel()
+    @OptIn(KoinExperimentalAPI::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -22,8 +26,9 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        Text(text = "Hello world!!", modifier = Modifier.align(Alignment.Center))
+                        Text(text = viewModel.data, modifier = Modifier.align(Alignment.Center))
                     }
+
                 }
             }
         }
