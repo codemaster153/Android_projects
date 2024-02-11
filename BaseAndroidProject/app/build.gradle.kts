@@ -53,17 +53,17 @@ dependencies {
     // Integration with activities
     implementation ("androidx.activity:activity-compose:1.8.2")
     // Compose Material Design
-    implementation ("androidx.compose.material:material:1.6.0")
+    implementation ("androidx.compose.material:material:1.6.1")
     // Animations
-    implementation ("androidx.compose.animation:animation:1.6.0")
+    implementation ("androidx.compose.animation:animation:1.6.1")
     // Tooling support (Previews, etc.)
-    implementation ("androidx.compose.ui:ui-tooling:1.6.0")
+    implementation ("androidx.compose.ui:ui-tooling:1.6.1")
     // Integration with ViewModels
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
     //koin
-    implementation ("io.insert-koin:koin-android:3.6.0-wasm-alpha1")
-    implementation ("io.insert-koin:koin-androidx-compose:3.6.0-wasm-alpha1")
+    implementation ("io.insert-koin:koin-android:3.5.3")
+    implementation ("io.insert-koin:koin-androidx-compose:3.5.3")
     //implementation ("io.insert-koin:koin-core:3.5.3")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -73,6 +73,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     // UI Tests
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.0")
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.6.1")
 
 }
