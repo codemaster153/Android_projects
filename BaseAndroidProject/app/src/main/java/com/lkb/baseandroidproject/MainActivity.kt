@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +24,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Rect
@@ -39,63 +41,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : ComponentActivity() {
-    val viewModel:MainViewModel by viewModel()
+    val viewModel: MainViewModel by viewModel()
+
     @OptIn(KoinExperimentalAPI::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             BaseAndroidProjectTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    var isVisible by remember {
-                        mutableStateOf(false)
-                    }
-
-                    val context = LocalContext.current
-
-                    var visibleTime by remember {
-                        mutableLongStateOf(0L)
-                    }
-
-                    LaunchedEffect(isVisible) {
-
-                        if (isVisible) {
-                            Toast.makeText(context, "😆 item visible $isVisible", Toast.LENGTH_SHORT)
-                                .show()
-                        } else {
-                            Toast.makeText(context, "🥵 Item visible $isVisible", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-
-                    Box(modifier = Modifier.fillMaxSize()){
-                        LazyColumn {
-                            item {
-                                Box (modifier = Modifier.padding(20.dp).isVisible(threshold = 100) {
-                                   isVisible = it
-                               }
-                                ){
-
-                                    Text(text = "Hello There I am top", Modifier.padding(20.dp))
-                                }
-                            }
-                            items(20){ item->
-//                               val modifier =  if(item==0) Modifier.isVisible(threshold = 100) {
-//                                   isVisible = it
-//                               } else Modifier
-                               Box(modifier = Modifier
-                                   .border(1.dp, color = Color.Gray)
-                                   .fillMaxWidth()){
-                                   Column() {
-                                       Text(text = "Heading Title $item")
-                                       Spacer(modifier = Modifier.padding(20.dp))
-                                       Text(text = "body text here it is --- $item")
-                                   }
-                               }
-
-                            }
-                        }
-                    }
+                    SecondScreen()
                 }
             }
         }
@@ -103,16 +57,61 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun ListDemo() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        val context = LocalContext.current
+        var isVisible by remember {
+            mutableStateOf(false)
+        }
+        LaunchedEffect(isVisible) {
+
+            if (isVisible) {
+                Toast.makeText(context, "😆 item visible $isVisible", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                Toast.makeText(context, "🥵 Item visible $isVisible", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        LazyColumn {
+            item {
+                Box(modifier = Modifier
+                    .padding(20.dp)
+                    .isVisible(threshold = 100) {
+                        isVisible = it
+                    }
+                ) {
+
+                    Text(text = "Hello There I am top", Modifier.padding(20.dp))
+                }
+            }
+            items(20) { item ->
+//                               val modifier =  if(item==0) Modifier.isVisible(threshold = 100) {
+//                                   isVisible = it
+//                               } else Modifier
+                Box(
+                    modifier = Modifier
+                        .border(1.dp, color = Color.Gray)
+                        .fillMaxWidth()
+                ) {
+                    Column() {
+                        Text(text = "Heading Title $item")
+                        Spacer(modifier = Modifier.padding(20.dp))
+                        Text(text = "body text here it is --- $item")
+                    }
+                }
+
+            }
+        }
+    }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    BaseAndroidProjectTheme {
-        Greeting("Android")
+fun SecondScreen() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("Hello Second Screen")
     }
+
 }
 
 @Composable
@@ -128,7 +127,6 @@ fun Modifier.isVisible(
         val layoutBottom = layoutTop + layoutHeight
 
 
-
         // This should be parentLayoutCoordinates not parentCoordinates
         val parent =
             layoutCoordinates.parentLayoutCoordinates
@@ -136,16 +134,16 @@ fun Modifier.isVisible(
         parent?.boundsInRoot()?.let { rect: Rect ->
             val parentTop = rect.top
             val parentBottom = rect.bottom
-            Log.d(">>>","layouttop = $layoutTop and layoutBottom= $layoutBottom")
-            Log.d(">>>","parentTop = $parentTop and parentBottom= $parentBottom")
+            Log.d(">>>", "layouttop = $layoutTop and layoutBottom= $layoutBottom")
+            Log.d(">>>", "parentTop = $parentTop and parentBottom= $parentBottom")
             if (
-                layoutBottom<=214
+                layoutBottom <= 214
             ) {
                 onVisibilityChange(true)
-                Log.d(">>> true","")
-            } else if(layoutBottom>0)  {
+                Log.d(">>> true", "")
+            } else if (layoutBottom > 0) {
                 onVisibilityChange(false)
-                Log.d(">>> false","")
+                Log.d(">>> false", "")
 
             }
         }
